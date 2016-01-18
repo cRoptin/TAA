@@ -25,6 +25,11 @@ import fr.istic.taa.domain.Department;
 import fr.istic.taa.domain.Employee;
 import fr.istic.taa.domain.Material;
 import fr.istic.taa.domain.Person;
+import fr.istic.taa.rest.CompanyResource;
+import fr.istic.taa.rest.DepartmentResource;
+import fr.istic.taa.rest.EmployeeResource;
+import fr.istic.taa.rest.MaterialResource;
+import fr.istic.taa.rest.PersonResource;
 import fr.istic.taa.rest.SwaggerResource;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.undertow.Undertow;
@@ -34,21 +39,7 @@ import java.util.Set;
 
 public class TestApplication extends Application {
 
-	public static void main(String[] args) {
-		UndertowJaxrsServer server = new UndertowJaxrsServer();
-        server.deploy(new TestApplication());
-
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("0.0.0-alpha");
-        beanConfig.setSchemes(new String[]{"http"});
-        beanConfig.setHost("localhost:8080");
-        beanConfig.setBasePath("/");
-        beanConfig.setResourcePackage("fr.istic.taa.rest");
-        beanConfig.setScan(true);
-        beanConfig.setPrettyPrint(true);
-
-        server.start(Undertow.builder().addHttpListener(8081, "0.0.0.0"));
-	}
+	
 	
     @Override
     public Set<Class<?>> getClasses() {
@@ -56,16 +47,16 @@ public class TestApplication extends Application {
     	final Set<Class<?>> resources = new HashSet<Class<?>>();
 
         // REST endpoints
-        resources.add(Department.class);
-        resources.add(Employee.class);
-        resources.add(Company.class);
-        resources.add(Material.class);
-        resources.add(Person.class);
+        resources.add(DepartmentResource.class);
+        resources.add(EmployeeResource.class);
+        resources.add(CompanyResource.class);
+        resources.add(MaterialResource.class);
+        resources.add(PersonResource.class);
 
         // SWAGGER endpoints
-        resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
+        /*resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
-        resources.add(SwaggerResource.class);
+        resources.add(SwaggerResource.class);*/
 
         return resources;
     	
